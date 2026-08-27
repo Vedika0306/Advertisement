@@ -1,16 +1,31 @@
 # Advertisement
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Advertisement</title>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <p>Click below to view our document.</p>
+const dateInput = document.getElementById("date");
 
-    <a href="https://ap.wps.com/cms/docs/d/cbCaeadw9TIGrF6E?sa=601.1074"
-       target="_blank">
-        View Document
-    </a>
-</body>
-</html>
+dateInput.min = new Date().toISOString().split("T")[0];
+
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const service = document.getElementById("service").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+    const notice = document.getElementById("notice");
+
+    const formattedDate = new Date(date + "T00:00:00")
+        .toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
+
+    notice.style.display = "block";
+
+    notice.textContent =
+        `Thank you, ${name}! Your ${service} appointment request 
+        for ${formattedDate} at ${time} has been recorded.`;
+
+    this.reset();
+
+    dateInput.min = new Date().toISOString().split("T")[0];
+});
